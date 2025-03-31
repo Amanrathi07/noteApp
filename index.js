@@ -1,6 +1,6 @@
 let addNoteBtn = document.getElementById("addNote");
 
-localStorage.setItem('notes', JSON.stringify(['aman', 'aman1', 'aman2', 'aman3']));
+
 displayNote();
 addNoteBtn.addEventListener("click", () => {
     addNewNote();
@@ -11,14 +11,14 @@ function displayNote(){
     let data = JSON.parse(localStorage.getItem('notes')) || [];
     
 
-    data.map((note)=>{
-        addNewNote(note);
+    data.map((note,index)=>{
+        addNewNote(note,index);
     })
 }
 
 
 
-function addNewNote(note){
+function addNewNote(note="",index=null){
     
     
     let parentNode = document.getElementById("allNotes")
@@ -37,16 +37,14 @@ function addNewNote(note){
 
     let editBtn = divElement.querySelector("#edit");
     let removeBtn = divElement.querySelector("#remove");
-    editBtn.addEventListener("click", (e)=>{
-       
-        let div=divElement.querySelector('#divA');
-        let textArea=divElement.querySelector('#areaA');
-       
-        
+    let div=divElement.querySelector('#divA');
+    let textArea=divElement.querySelector('#areaA');
+    editBtn.addEventListener("click", (e)=>{ 
         if(e.target.innerText === "Save"){
             e.target.innerText = "Edit";
             e.target.style.backgroundColor = "rgb(7, 255, 220)";
             
+            toLocalstorage(textArea.value,index);
             
         }else{
             e.target.innerText = "Save";
@@ -60,11 +58,36 @@ function addNewNote(note){
     
     removeBtn.addEventListener("click", (e)=>{
         parentNode.removeChild(divElement);
+        let data = JSON.parse(localStorage.getItem('notes')) || [];
+        data.splice(index,1);
+        localStorage.setItem('notes', JSON.stringify(data));
+        document.getElementById("allNotes").innerHTML = "";
+        displayNote()
     });
 
 
+    if(note){
+        editBtn.innerText = "edit";
+        editBtn.style.backgroundColor = " rgb(7, 255, 220)";
+        div.classList.toggle('hiden');
+        textArea.classList.toggle('hiden');
+    }
+
     parentNode.appendChild(divElement);
     
-    console.log("aman");
+   
+}
+
+
+function toLocalstorage(value,index){
     
+    let data=JSON.parse(localStorage.getItem('notes')) || [];    
+    if(index == null){        
+        data.push(value);        
+    }else{
+        data.splice(index,1,value);
+    }        
+    localStorage.setItem('notes', JSON.stringify(data));   
+    document.getElementById("allNotes").innerHTML = "";
+    displayNote();
 }

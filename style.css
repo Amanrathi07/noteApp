@@ -6,7 +6,7 @@
 
 .mainDiv{
     
-    background-color: aquamarine;
+    background-color: rgb(126, 165, 152);
     min-height: 100vh;
     height: 100%;
     display: flex;
@@ -30,7 +30,7 @@
 /* card start */
 
 .card{
-    background-color: rgb(234, 0, 255);
+    background-color: rgb(180, 255, 6);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -67,7 +67,7 @@
 }
 
 .singleNote{
-    background-color: yellow;
+    
     width: 100%;   
     height: 200px;
     border-top: 2px solid rgb(0, 0, 0);
@@ -78,8 +78,10 @@
 #divA{
     overflow-wrap: break-word;
     overflow-y: scroll;
+    background-color: rgb(255, 251, 5);
 }
 
 #areaA{
     outline: none;
+    background-color: rgb(11, 255, 214);
 }
